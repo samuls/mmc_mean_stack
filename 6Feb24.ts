@@ -1,4 +1,4 @@
-db.createCollection('posts'{
+db.createCollection('posts',{
     validator:{
         $jsonSchema:{
             bsonType:'object',
@@ -44,18 +44,18 @@ db.createCollection('posts'{
 
 
 db.posts.insertone( {
-    user:ObjectId('65c1e78ce69cd254e859515e'),
+    user:ObjectId('65c272999ef32c88dc16e198'),
     text: 'My first posts',
     name: 'Beautifull Nature XXXX',
     avatar: 'mypic.jpg',
     likes: [
         {
-        user:ObjectId('65c1e79ce69cd254e859515f')
+        user:ObjectId('65c272ab9ef32c88dc16e199')
         }
     ],
     comments: [
         {
-            user:ObjectId('65c1ea1de69cd254e8595160'),
+            user:ObjectId('65c272b69ef32c88dc16e19a'),
             text:'Very nice posts',
             name: 'Samadhan Nirali',
             avatar: 'mypic1.jpg'
