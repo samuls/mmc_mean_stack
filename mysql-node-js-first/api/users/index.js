@@ -88,6 +88,7 @@ userRouter.post(
     const payload = {
       user: {
         id: response[0].id,
+        userType: response[0].user_type,
       },
     };
 

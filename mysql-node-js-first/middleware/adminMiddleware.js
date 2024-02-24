@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const authMiddleware = (req, res, next) => {
+const adminMiddleware = (req, res, next) => {
   const authToken = req.header("x-auth-token");
   if (!authToken) {
     return res.status(401).send({
@@ -16,7 +16,7 @@ const authMiddleware = (req, res, next) => {
         });
       }
 
-      if ("User" === result.user.userType) {
+      if ("Admin" === result.user.userType) {
         req.user = result.user;
         next();
       } else {
@@ -28,9 +28,9 @@ const authMiddleware = (req, res, next) => {
   } catch (error) {
     return res.status(401).send({
       status: false,
-      message: "Catch=>" + error.message,
+      message: error.message,
     });
   }
 };
 
-export default authMiddleware;
+export default adminMiddleware;
