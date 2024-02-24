@@ -1,0 +1,146 @@
+db.createCollection('customers',{
+	validator:{
+	  $jsonSchema:{
+		bsonType:'object',
+		required:['name','email','phone','address','dob'],
+		properties:{
+			name:{bsonType:'string'},
+			email:{bsonType:'string'},
+			address:{bsonType:'string'},
+			phone:{bsonType:'decimal'},
+			dob:{bsonType:'date'}
+		}
+	  }
+	}
+});
+
+
+db.createCollection('accounts',{
+	validator:{
+	  $jsonSchema:{
+		bsonType:'object',
+		required:['customer_id','account_number','type','balance','open_date'],
+		properties:{
+			customer_id:{bsonType:'objectId'},
+			account_number:{bsonType:'string',minLength:10,description:'Account number should be 10 digit number'},
+			type:{bsonType:'string'},
+			balance:{bsonType:'decimal'},
+			open_date:{bsonType:'date'}
+		}
+	  }
+	}
+});
+
+db.createCollection('transactions',{
+	validator:{
+	  $jsonSchema:{
+		bsonType:'object',
+		required:['account_id','type','ammount','date','description'],
+		properties:{
+			account_id:{bsonType:'objectId'},
+			type:{bsonType:'string'},
+			amount:{bsonType:'decimal'},
+			date:{bsonType:'date'},
+			description:{bsonType:'string'}
+		}
+	  }
+	}
+});
+
+1. Retrieve the names and account numbers of customers who have a savings account with a balance greater than $10,000.
+	db.accounts.aggregate([
+		{$match:{balance:{$gte:10000}}},
+		{$lookup:{from:'customers',localField:"customer_id",foreignField:'_id', as:"customer_info"}}
+	]);
+
+2. Find the total number of transactions made by each customer.
+
+	db.transactions.aggregate([
+	{
+		$group:{
+			_id:"$account_id",
+			count:{$sum:1}
+		}
+	},
+	{
+		$lookup:
+		{
+			from:'accounts',
+			localField:"_id",
+			foreignField:"_id",
+			as:"account_info"
+		}
+	},
+	{$unwind:"$account_info"},
+	{
+		$lookup:
+		{
+			from:'customers',
+			localField:"_id",
+			foreignField:"_id",
+			as:"customer_info"
+		}
+	}])
+
+3. List the average transaction amount for each type of transaction.
+	db.transactions.aggregate([{
+			$group: 
+			{ 
+					_id: {type:"$type"}, 
+				average_transactions: 
+				{ $avg: "$ammount" } 
+			} 
+	}]);
+	
+4. Calculate the total balance across all accounts.
+
+db.accounts.aggregate([{
+			$group: 
+			{ 
+				_id: {type:"$type"}, 
+				total_amount: 
+				{ $avg: "$balance" } 
+			} 
+	}]);
+	
+5. Identify the customer who has made the largest single withdrawal.
+db.transactions.aggregate([
+	{$match:{type:'withdrawal'}},
+	{
+		$group:{
+			_id:{type:"withdrawal"},
+			maximum_withdrawal:{$max:"$ammount"}
+		}
+	}
+])
+
+6. Find the account with the lowest balance.
+
+db.accounts.aggregate([
+	{
+		$group:{
+			_id:"$customer_id",
+			manimum_withdrawal:{$min:"$balance"}
+		}
+	}
+])
+
+7. Determine the number of transactions made in the last month.
+db.transactions.find({date:{$lte:new Date(new Date().setMonth(new Date().getMonth()-1))}});
+
+8.List the top 10 customers with the highest account balances.
+	db.accounts.aggregate(
+		{
+			$sort:{balance:-1},
+		},
+		{
+			$limit:3
+		}
+	);
+
+9.Find the total amount deposited in the last week.
+db.transactions.find({
+    date: {
+        $gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000)
+    }
+});
