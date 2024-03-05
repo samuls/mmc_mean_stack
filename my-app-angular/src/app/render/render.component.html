@@ -1,0 +1,18 @@
+<p>hidden demo!</p>
+
+<div [hidden]="shopCart.length == 0">Items in your cart</div>
+
+<div [hidden]="shopCart.length > 0">No item found</div>
+<hr />
+<p style="font-weight: bold">ngIf demo!</p>
+
+<div *ngIf="shopCart.length > 0">Items in your cart</div>
+
+<div *ngIf="shopCart.length == 0">No item found</div>
+
+<hr />
+<p style="font-weight: bold">ng-template demo!</p>
+<div *ngIf="shopCart.length > 0; then show; else noshow"></div>
+<ng-template #show>Items in your cart</ng-template>
+
+<ng-template #noshow>No item found</ng-template>

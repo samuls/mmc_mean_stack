@@ -1,0 +1,8 @@
+<p>binding works!</p>
+
+UserName:<input type="text" [value]="uname" [(ngModel)]="uname" />
+{{ uname }}
+Profile:<img [src]="profile" width="100" height="100" />
+
+<!-- EVENT BINDING -->
+<button type="button" (click)="showData()">Click Me</button>

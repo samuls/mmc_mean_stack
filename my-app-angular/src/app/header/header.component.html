@@ -1,0 +1,17 @@
+<p>{{ title }}</p>
+
+<p>User Data</p>
+
+<ul *ngIf="userdata.length > 0">
+  <li *ngFor="let user of userdata">
+    {{ user }}
+  </li>
+</ul>
+<div *ngIf="userdata.length == 0">No user data found</div>
+
+<ul *ngIf="projectdata.length > 0">
+  <li *ngFor="let project of projectdata">
+    {{ project }}
+  </li>
+</ul>
+<div *ngIf="projectdata.length == 0">No project data found</div>
