@@ -8,8 +8,11 @@ import { HeaderComponent } from './header/header.component';
 import { UserService } from './shared/services/userdata.service';
 import { ProjectService } from './shared/services/project.service';
 import { BindingComponent } from './binding/binding.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RenderComponent } from './render/render.component';
+import { TemplateFormsComponent } from './template-forms/template-forms.component';
+import { DataDrivenFormComponent } from './data-driven-form/data-driven-form.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,11 +21,15 @@ import { RenderComponent } from './render/render.component';
     FooterComponent,
     HeaderComponent,
     BindingComponent,
-    RenderComponent
+    RenderComponent,
+    TemplateFormsComponent,
+    DataDrivenFormComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   // Services:[UserService,ProjectService]
   providers: [UserService,ProjectService],

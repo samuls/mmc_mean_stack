@@ -1,0 +1,101 @@
+<br />
+<div class="container">
+  <div class="card border-primary">
+    <div class="card-header">New User</div>
+    <div class="card-body">
+      <form (ngSubmit)="addUser()" [formGroup]="myForm">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="fname"
+            placeholder="Enter First Name"
+          />
+          <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
+            First is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lname"
+            placeholder="Enter Last Name"
+          />
+          <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+            Last Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email-id</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter Email-id"
+          />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors?.['required']">Email is required</div>
+            <div *ngIf="email.errors?.['emailDomain']">
+              Email domain should contain mmc.com
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="pass"
+            placeholder="Enter Password"
+          />
+          <div *ngIf="pass.invalid && (pass.dirty || pass.touched)">
+            Password is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="accountType">Account Type</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="accountType"
+            placeholder="Enter Account Type"
+          />
+          <div
+            *ngIf="
+              accountType.invalid && (accountType.dirty || accountType.touched)
+            "
+          >
+            Account type is required
+          </div>
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- <button type="button" (click)="loadUsers()">Load Users</button> -->
+  <table class="table table-bordered">
+    <tr>
+      <td>First Name</td>
+      <td>Last Name</td>
+      <td>Email-id</td>
+      <td>Password</td>
+      <td>Account Type</td>
+    </tr>
+
+    <tr *ngFor="let user of users">
+      <td>{{ user.fname }}</td>
+      <td>{{ user.lname }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.pass }}</td>
+      <td>{{ user.accountType }}</td>
+    </tr>
+  </table>
+</div>

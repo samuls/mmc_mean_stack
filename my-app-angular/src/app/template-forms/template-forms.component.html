@@ -1,0 +1,92 @@
+<!-- <div class="container">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">User Form</h3>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" [(ngModel)]="user.fname" />
+          </div>
+
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" [(ngModel)]="user.lname" />
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">
+            Confirm identity
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
+<br />
+<div class="container">
+  <form class="form" (ngSubmit)="addUser(data)" #data="ngForm">
+    First Name :
+    <input
+      class="form-controller"
+      type="text"
+      name="fname"
+      required
+      ngModel
+      #un="ngModel"
+    />
+    <div *ngIf="un.invalid && (un.dirty || un.touched)">First is required</div>
+    <br /><br />
+    Last Name :
+    <input type="text" name="lname" required ngModel #lname="ngModel" />
+    <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+      Last Name is required
+    </div>
+    <br /><br />
+    Email-id :
+    <input
+      type="email"
+      name="email"
+      required
+      email
+      ngModel
+      #email="ngModel"
+    /><br />
+    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['email']">Email is not valid</div>
+    </div>
+    <br />
+    Password :
+    <input
+      type="password"
+      name="password"
+      required
+      minlength="6"
+      ngModel
+      #pass="ngModel"
+    />
+    <div *ngIf="pass.invalid && (pass.dirty || pass.touched)">
+      <div *ngIf="pass.errors?.['required']">Password is required</div>
+      <div *ngIf="pass.errors?.['minlength']">
+        Password should be minimum 6 character
+      </div>
+    </div>
+    <br /><br />
+    Account Type :<input
+      type="text"
+      name="accountType"
+      required
+      ngModel
+      #acctype="ngModel"
+    />
+    <div *ngIf="acctype.invalid && (acctype.dirty || acctype.touched)">
+      Account Type is required
+    </div>
+    <br /><br />
+    <input [disabled]="data.invalid" type="submit" value="Submit" />
+  </form>
+</div>
