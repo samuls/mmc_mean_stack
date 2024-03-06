@@ -12,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RenderComponent } from './render/render.component';
 import { TemplateFormsComponent } from './template-forms/template-forms.component';
 import { DataDrivenFormComponent } from './data-driven-form/data-driven-form.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { Logger } from './shared/interceptor/Logger.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule
   ],
   // Services:[UserService,ProjectService]
-  providers: [UserService,ProjectService],
+  providers: [UserService,ProjectService,
+  {provide:HTTP_INTERCEPTORS, useClass:Logger,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
