@@ -1,0 +1,2 @@
+ng g c standalone/user --standalone --skip-tests
+ng g d shared/font --standalone --skip-tests

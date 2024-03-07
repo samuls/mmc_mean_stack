@@ -12,15 +12,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RenderComponent } from './render/render.component';
 import { TemplateFormsComponent } from './template-forms/template-forms.component';
 import { DataDrivenFormComponent } from './data-driven-form/data-driven-form.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Logger } from './shared/interceptor/Logger.interceptor';
 import { HeaderInter } from './shared/interceptor/Header.interceptor';
 import { Logger2 } from './shared/interceptor/Logger2.interceptor';
 import { ErrorInterc } from './shared/interceptor/ErrorInterc.interceptor';
 import { CacheInterceptor } from './shared/interceptor/cache.interceptor';
-import { PipedemoComponent } from './pipedemo/pipedemo.component';
-import { Summary } from './shared/pipe/summary.pipe';
-import { StrReverse } from './shared/pipe/reverse.pipe';
+import { TempConponentComponent } from './temp-conponent/temp-conponent.component';
+import { ConvertTemp } from './shared/pipe/convertTemp.pipe';
+import { SharedModule } from './shared/shared.module';
+import { UserComponent } from './standalone/user/user.component';
+import { DynamicComponent } from './dynamic/dynamic.component';
+import { HostComponent } from './host/host.component';
 
 @NgModule({
   declarations: [
@@ -32,24 +35,29 @@ import { StrReverse } from './shared/pipe/reverse.pipe';
     RenderComponent,
     TemplateFormsComponent,
     DataDrivenFormComponent,
-    PipedemoComponent,
-    Summary,
-    StrReverse
+    TempConponentComponent,
+    ConvertTemp,
+    DynamicComponent,
+    HostComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    UserComponent,
   ],
   // Services:[UserService,ProjectService]
-  providers: [UserService,ProjectService,
-  {provide:HTTP_INTERCEPTORS, useClass:Logger,multi:true},
-  {provide:HTTP_INTERCEPTORS, useClass:Logger2,multi:true},
-  {provide:HTTP_INTERCEPTORS, useClass:HeaderInter,multi:true},
-  {provide:HTTP_INTERCEPTORS, useClass:ErrorInterc,multi:true},
-  {provide:HTTP_INTERCEPTORS, useClass:CacheInterceptor,multi:true},
+  providers: [
+    UserService,
+    ProjectService,
+    { provide: HTTP_INTERCEPTORS, useClass: Logger, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: Logger2, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInter, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterc, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
