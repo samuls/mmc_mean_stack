@@ -56,7 +56,7 @@ export class DataDrivenFormComponent {
   addUser(){
     // console.log(this.myForm.value);
     this.userData.addUserToDb(this.myForm.value);
-    this.loadUsers();
+    // this.loadUsers();
   }
 
   loadUsers(){
@@ -71,6 +71,6 @@ export class DataDrivenFormComponent {
   }
 
   ngOnInit() {
-    this.loadUsers();
+    // this.loadUsers();
   }
 }

@@ -14,6 +14,13 @@ import { TemplateFormsComponent } from './template-forms/template-forms.componen
 import { DataDrivenFormComponent } from './data-driven-form/data-driven-form.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { Logger } from './shared/interceptor/Logger.interceptor';
+import { HeaderInter } from './shared/interceptor/Header.interceptor';
+import { Logger2 } from './shared/interceptor/Logger2.interceptor';
+import { ErrorInterc } from './shared/interceptor/ErrorInterc.interceptor';
+import { CacheInterceptor } from './shared/interceptor/cache.interceptor';
+import { PipedemoComponent } from './pipedemo/pipedemo.component';
+import { Summary } from './shared/pipe/summary.pipe';
+import { StrReverse } from './shared/pipe/reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +31,10 @@ import { Logger } from './shared/interceptor/Logger.interceptor';
     BindingComponent,
     RenderComponent,
     TemplateFormsComponent,
-    DataDrivenFormComponent
+    DataDrivenFormComponent,
+    PipedemoComponent,
+    Summary,
+    StrReverse
   ],
   imports: [
     BrowserModule,
@@ -34,7 +44,11 @@ import { Logger } from './shared/interceptor/Logger.interceptor';
   ],
   // Services:[UserService,ProjectService]
   providers: [UserService,ProjectService,
-  {provide:HTTP_INTERCEPTORS, useClass:Logger,multi:true}
+  {provide:HTTP_INTERCEPTORS, useClass:Logger,multi:true},
+  {provide:HTTP_INTERCEPTORS, useClass:Logger2,multi:true},
+  {provide:HTTP_INTERCEPTORS, useClass:HeaderInter,multi:true},
+  {provide:HTTP_INTERCEPTORS, useClass:ErrorInterc,multi:true},
+  {provide:HTTP_INTERCEPTORS, useClass:CacheInterceptor,multi:true},
   ],
   bootstrap: [AppComponent]
 })
