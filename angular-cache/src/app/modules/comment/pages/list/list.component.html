@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let comment of commentList">
+      <td>{{ comment.id }}</td>
+      <td>{{ comment.name }}</td>
+      <td>{{ comment.email }}</td>
+    </tr>
+  </tbody>
+</table>
