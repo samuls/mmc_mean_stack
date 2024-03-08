@@ -1,0 +1,11 @@
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/userdetails/customer']">Customer</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/userdetails/employee']">Employee</a>
+  </li>
+</ul>
+<button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
+
+<router-outlet />

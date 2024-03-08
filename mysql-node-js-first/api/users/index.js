@@ -16,7 +16,7 @@ userRouter.get("/", async (req, res) => {
     return res.status(404).json({ status: false, message: "user not found" });
   }
 
-  connection.end();
+  // connection.end();
   return res.status(200).json({ status: true, data: response });
 });
 

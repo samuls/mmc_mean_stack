@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-heading">User Registration</div>
+    <div class="card-body">
+        <form class="form-horizontal" (ngSubmit)="addUser()" [formGroup]="myForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" formControlName="fname" placeholder="Enter First Name" />
+                    <div *ngIf="fname.invalid && (fname.dirty || fname.touched)">
+                        First is required
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" formControlName="lname" placeholder="Enter Last Name" />
+                    <div *ngIf="lname.invalid && (lname.dirty || lname.touched)">
+                        Last is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="text" class="form-control" formControlName="email" placeholder="Enter Email" />
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <div *ngIf="email.errors?.['required']">Email is required</div>
+                        <div *ngIf="email.errors?.['emailDomain']">
+                            Email domain should contain mmc.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Enter Password"
+                        formControlName="password" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Account Type</label>
+                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="accountType" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Address0</label>
+                    <input type="text" class="form-control" placeholder="Enter address" formControlName="address" />
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary" />
+        </form>
+    </div>
+
+    <button (click)="loadUserDetails()" class="btn btn-primary">Load Users</button>
+</div>

@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-hrading">Login User</div>
+    <div class="card-body">
+        <form class="form" (ngSubmit)="login(data)" #data="ngForm">
+
+    Email-id :
+    <input
+      type="email"
+      name="email"
+      required
+      email
+      ngModel
+      #email="ngModel"
+    /><br />
+    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['email']">Email is not valid</div>
+    </div>
+    <br />
+    Password :
+    <input
+      type="password"
+      name="password"
+      required
+      minlength="6"
+      ngModel
+      #pass="ngModel"
+    />
+    <div *ngIf="pass.invalid && (pass.dirty || pass.touched)">
+      <div *ngIf="pass.errors?.['required']">Password is required</div>
+      <div *ngIf="pass.errors?.['minlength']">
+        Password should be minimum 6 character
+      </div>
+    </div>
+    <br /><br />
+    <input [disabled]="data.invalid" type="submit" value="Submit" />
+  </form>
+    </div>
+</div>
