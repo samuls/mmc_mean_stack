@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2 mt-5" style="margin-left: 5px;" *ngFor="let product of products">
+                    <img [src]="product.image" />
+                    <h6 style="text-align: center;">{{product.name}}</h6>
+                    <label style="font-weight: 500;text-align: center;">Price: {{product.price|currency:'INR'}}</label>
+                    <!-- <label style="font-weight: 500;text-align: center;">Quantity: {{product.quantity}}</label> -->
+                    <div class="row ml-5">
+                        <button class="btn btn-success">Purchase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

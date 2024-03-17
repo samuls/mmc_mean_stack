@@ -1,0 +1,51 @@
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 mt-5">
+            <div class="card">
+                <div class="card-header">CREATE YOUR ACCOUNT</div>
+                <div class="card-body">
+                    <form [formGroup]="signupForm" (ngSubmit)="signup()">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" formControlName="first_name" class="form-control">
+                            <div *ngIf="f['first_name'].invalid && (f['first_name'].dirty || f['first_name'].touched)"
+                                class="text-danger">
+                                First Name is required
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" formControlName="last_name" class="form-control">
+                            <div *ngIf="f['last_name'].invalid && (f['last_name'].dirty || f['last_name'].touched)"
+                                class="text-danger">
+                                Last Name is required
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" formControlName="email" class="form-control">
+                            <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)"
+                                class="text-danger">
+                                Email is required
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" formControlName="password" class="form-control">
+                            <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)"
+                                class="text-danger">
+                                Password is required
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <button type="submit" [disabled]="signupForm.invalid"
+                                class="btn btn-primary">Signup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,8 +12,8 @@ export class UserService {
   addUserToDb(users: any) {
     this.http
       .post('http://localhost:3000/users/register', users)
-      .subscribe((response) => {
-        console.log(response);
+      .subscribe((response: any) => {
+        console.log(response.status);
       });
   }
 

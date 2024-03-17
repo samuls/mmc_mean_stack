@@ -9,7 +9,7 @@ const userRouter = express.Router();
 
 userRouter.get("/", async (req, res) => {
   const response = await QueryExecutor(
-    "select id,fname,lname,email,address,accountType from users"
+    "select id,fname,lname,email,address,accountType from users order by id desc"
   );
 
   if (response.length === 0) {
@@ -18,6 +18,23 @@ userRouter.get("/", async (req, res) => {
 
   // connection.end();
   return res.status(200).json({ status: true, data: response });
+});
+
+userRouter.get("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const response = await QueryExecutor(
+    "select id,fname,lname,email,address,accountType from users where id = " +
+      id +
+      " limit 1"
+  );
+
+  if (response.length === 0) {
+    return res.status(404).json({ status: false, message: "user not found" });
+  }
+
+  // connection.end();
+  return res.status(200).json({ status: true, data: response[0] });
 });
 
 userRouter.post(
@@ -48,15 +65,16 @@ userRouter.post(
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
     const query = `INSERT INTO users (fname, lname, email, password, address, accountType) VALUES ('${fname}','${lname}','${email}','${encryptedPassword}','${address}','${accountType}')`;
-    QueryExecutor(query)
-      .then((result) => {
-        res
-          .status(200)
-          .json({ status: true, message: "user registered successfully" });
-      })
-      .catch((err) => {
-        res.status(400).json({ status: false, message: err.message });
-      });
+    const response1 = await QueryExecutor(query);
+
+    const user = await QueryExecutor(
+      "select * from users order by id desc limit 1"
+    );
+    res.status(200).json({
+      status: true,
+      message: "user registered successfully123",
+      data: user[0],
+    });
   }
 );
 
